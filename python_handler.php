@@ -11,6 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_code"])) {
     // Получаем ожидаемые выходные данные
     $outputData = $_POST["output_data"];
 
+    $progaText = $_POST["progatext"];
+
     $taskname = $_POST["taskname"];
 
     // Отримуємо ідентифікатор заголовка та логін користувача
@@ -72,6 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_code"])) {
     $cleanedOutput = preg_replace('/\s+/', '', $output);
     $cleanedOutputData = preg_replace('/\s+/', '', $outputData);
 
+
+
+
+
     // echo $output;
     // echo $outputData;
 
@@ -89,12 +95,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_code"])) {
         echo "true";
     } else {
         // Если данные не совпадают, возвращаем "false"
-        echo $pythonCode;
+        // //Робота з ШІ gpt
+        include "gpt4free.php";
         
     }
     
     // Видаляємо файли після використання
         unlink("user_code{$userLogin}.py");
         unlink("input_data{$userLogin}.txt");
+        // unlink("output.txt");
 }
 ?>

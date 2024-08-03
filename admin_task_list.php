@@ -54,7 +54,7 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
           <h5 class="modal-title" id="errorModalLabel">Помилка</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="modal-body-content">
           Програма написана не вірно, переконайтесь що вихідні данні співпадають з зразком.
         </div>
         <div class="modal-footer">
@@ -239,6 +239,7 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
                                               var pythonCode = document.getElementById("user_code<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>").value; // Получаем код Python из текстового поля
                                               var inputData = <?php echo json_encode($title['input']); ?>;
                                               var outputData = <?php echo json_encode($title['output']); ?>;
+                                              var progaText = <?php echo json_encode($title['progatext']); ?>;
 
 
 
@@ -278,6 +279,10 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
                                                           // и текст ячейки "Завдання не виконано"
                                                           tableData.className = "table-danger";
                                                           tableData.innerText = "Завдання не виконано";
+                                                          
+                                                          // Обновляем содержимое модального окна
+                                                          document.getElementById('modal-body-content').textContent = output;
+
                                                           var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
                                                                          errorModal.show();
 
@@ -288,7 +293,7 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
                                               };
 
                                           //     // Відправляємо код Python, вхідні та очікувані вихідні дані на сервер
-                                              xhr.send("user_code=" + encodeURIComponent(pythonCode) + "&input_data=" + encodeURIComponent(inputData) + "&output_data=" + encodeURIComponent(outputData) + "&title_id=" + titleId + "&user_login=" + encodeURIComponent(userLogin) + "&taskname=" + encodeURIComponent(taskname));
+                                              xhr.send("user_code=" + encodeURIComponent(pythonCode) + "&input_data=" + encodeURIComponent(inputData) + "&output_data=" + encodeURIComponent(outputData) + "&title_id=" + titleId + "&user_login=" + encodeURIComponent(userLogin) + "&taskname=" + encodeURIComponent(taskname) + "&progatext=" + encodeURIComponent(progaText));
                                           }
 
                                           </script>
