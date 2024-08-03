@@ -230,7 +230,13 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
                                           <?php 
                                               if ($result_result->num_rows < 1) {
                                                   ?>
-                                                  <button class="b-show btn btn-primary" id="but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>" type="button" onclick="sendPythonCode<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>();">Відправити програму</button>
+                                                  <button class="b-show btn btn-primary" id="but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>" type="button" onclick="sendPythonCode<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>();" style="display: block;">Відправити програму</button>
+
+                                                  <button class="btn btn-primary" type="button" disabled id="load-but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>" style="display: none;">
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    Завантаження...
+                                                  </button>
+
                                                   <?php
                                               }
                                            ?>
@@ -241,7 +247,8 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
                                               var outputData = <?php echo json_encode($title['output']); ?>;
                                               var progaText = <?php echo json_encode($title['progatext']); ?>;
 
-
+                                              document.getElementById('but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>').style.display = 'none';
+                                              document.getElementById('load-but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>').style.display = 'block';
 
                                               var taskname = "<?php echo $taskname; ?>";
 
@@ -274,6 +281,7 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
                                                           buttonData.className = "b-hidden";
                                                           // Изменяем текст ячейки на "Завдання виконано"
                                                           tableData.innerText = "Завдання виконано";
+                                                          document.getElementById('load-but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>').style.display = 'none';
                                                       } else {
                                                           // Если результат выполнения кода Python - "false", то оставляем класс "table-danger"
                                                           // и текст ячейки "Завдання не виконано"
@@ -282,6 +290,9 @@ $res_class = mysqli_query($conn,"SELECT * FROM `class`");
                                                           
                                                           // Обновляем содержимое модального окна
                                                           document.getElementById('modal-body-content').textContent = output;
+
+                                                          document.getElementById('but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>').style.display = 'block';
+                                                          document.getElementById('load-but<?php echo $title['id']; ?><?php echo $class_id['class_id']; ?>').style.display = 'none';
 
                                                           var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
                                                                          errorModal.show();
