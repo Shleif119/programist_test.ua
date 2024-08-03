@@ -18,9 +18,9 @@ include "phpscript.php";
         <div class="row">
             <div class="col-md-12">
                 <form id="myForm" >
+                    <label class="form-label">Назва практичної роботи</label>
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="form-label">Назва практичної роботи</label>
                             <input type="text" class="form-control mb-2" id="taskname" name="taskname">
                         </div>
                         <div class="col-md-6">
