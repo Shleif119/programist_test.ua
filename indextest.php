@@ -32,3 +32,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <input type="submit" value="Перевірити код">
 </form>
+
+ну попробую шото змінити
