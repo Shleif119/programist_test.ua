@@ -202,3 +202,9 @@ footer {
     letter-spacing: 2px;
     font-weight: bold;
 }
+
+.card-tasklist {
+    padding: 7px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
