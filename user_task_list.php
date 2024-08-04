@@ -52,6 +52,24 @@ foreach ($checkbox_data_array as $checkbox_data) {
 
 ?>
 <body>
+
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Помилка</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="modal-body-content">
+            Програма написана не вірно, переконайтесь що вихідні данні співпадають з зразком.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <?php 
         include "top_header.php";
      ?>
@@ -184,7 +202,14 @@ foreach ($checkbox_data_array as $checkbox_data) {
                         <?php 
                             if ($result_result->num_rows < 1) {
                                 ?>
-                                <button class="b-show btn btn-primary" id="but<?php echo $title['id']; ?>" type="button" onclick="sendPythonCode<?php echo $title['id']; ?>();">Відправити програму</button>
+                                
+                                <button class="b-show btn btn-primary" id="but<?php echo $title['id']; ?>" type="button" onclick="sendPythonCode<?php echo $title['id']; ?>();" style="display: block;">Відправити програму</button>
+
+                                <button class="btn btn-primary" type="button" disabled id="load-but<?php echo $title['id']; ?>" style="display: none;">
+                                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                  Завантаження...
+                                </button>
+
                                 <?php
                             }
                          ?>
@@ -219,6 +244,10 @@ function sendPythonCode<?php echo $title['id']; ?>() {
     var pythonCode = document.getElementById("user_code<?php echo $title['id']; ?>").value; // Получаем код Python из текстового поля
     var inputData = <?php echo json_encode($title['input']); ?>;
     var outputData = <?php echo json_encode($title['output']); ?>;
+    var progaText = <?php echo json_encode($title['progatext']); ?>;
+
+    document.getElementById('but<?php echo $title['id']; ?>').style.display = 'none';
+    document.getElementById('load-but<?php echo $title['id']; ?>').style.display = 'block';
 
 
 
@@ -252,20 +281,27 @@ function sendPythonCode<?php echo $title['id']; ?>() {
                 buttonData.className = "b-hidden";
                 // Изменяем текст ячейки на "Завдання виконано"
                 tableData.innerText = "Завдання виконано";
+                document.getElementById('load-but<?php echo $title['id']; ?>').style.display = 'none';
             } else {
                 // Если результат выполнения кода Python - "false", то оставляем класс "table-danger"
                 // и текст ячейки "Завдання не виконано"
                 tableData.className = "table-danger";
                 tableData.innerText = "Завдання не виконано";
 
-                // textData.className = "text-error";
-                // textData.innerText = "Не вірна відповідь.";
+                 // Обновляем содержимое модального окна
+                  document.getElementById('modal-body-content').textContent = output;
+
+                  document.getElementById('but<?php echo $title['id']; ?>').style.display = 'block';
+                  document.getElementById('load-but<?php echo $title['id']; ?>').style.display = 'none';
+
+                  var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                                 errorModal.show();
             }
         }
     };
 
 //     // Відправляємо код Python, вхідні та очікувані вихідні дані на сервер
-    xhr.send("user_code=" + encodeURIComponent(pythonCode) + "&input_data=" + encodeURIComponent(inputData) + "&output_data=" + encodeURIComponent(outputData) + "&title_id=" + titleId + "&user_login=" + encodeURIComponent(userLogin) + "&taskname=" + encodeURIComponent(taskname));
+    xhr.send("user_code=" + encodeURIComponent(pythonCode) + "&input_data=" + encodeURIComponent(inputData) + "&output_data=" + encodeURIComponent(outputData) + "&title_id=" + titleId + "&user_login=" + encodeURIComponent(userLogin) + "&taskname=" + encodeURIComponent(taskname) + "&progatext=" + encodeURIComponent(progaText));
 }
 
 //     var formData = new FormData();
