@@ -1,8 +1,16 @@
+:root {
+  --primary-color: #16171b;
+  --secondary-color: #2ecc71;
+  --text-color: #ffffff;
+}
+
+
 body {
     padding: 0;
     margin: 0;
     background: rgb(255,254,203);
     background: linear-gradient(221deg, rgba(255,254,203,1) 0%, rgba(145,253,255,0.0032387955182072714) 35%, rgba(255,251,235,1) 100%);
+/*    background-color: var(--primary-color);*/
 }
 
 
@@ -187,8 +195,15 @@ footer {
 }
 
 .btn-light {
-    background-color: #2aabee;
-    color: #fff;
+    background-color: #fefefe;
+    color: #5987f3;
+   border-color: #cccccc;
+}
+
+.btn-light:hover {
+    background-color: #eeeeee;
+    color: #5987f3;
+   border-color: #cccccc;
 }
 
 .ck {

@@ -35,22 +35,38 @@ include "phpscript.php";
                         <label class="form-label">Шаблон коду програми</label>
                         <textarea class="form-control" rows="10" name="text_proga" required></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Вхідні данні</label>
-                        <input type="text" class="form-control" name="input" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Вхідні данні</label>
+                                <textarea class="form-control" name="input" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Фейкові вхідні данні</label>
+                                <textarea class="form-control" name="f_input" required></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Фейкові вхідні данні</label>
-                        <input type="text" class="form-control" name="f_input" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Вихідні данні</label>
+                                <textarea class="form-control" name="output" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Фейкові вихідні данні</label>
+                                <textarea class="form-control" name="f_output" required></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Вихідні данні</label>
-                        <input type="text" class="form-control" name="output" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Фейкові вихідні данні</label>
-                        <input type="text" class="form-control" name="f_output" required>
-                    </div>
+                    
+                   
+                    
+                    
 
                     <!-- Скрита передача коду вчителя для завдання -->
                     <input type="hidden" class="form-control" name="code" value="<?php echo $code; ?>" required>
